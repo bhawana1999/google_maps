@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  <h1 align ="center" color = "blue">IIT DELHI</h1> 
+    <div id="map"></div>
+    <script>
+     function initMap() {
+  var center = {lat: 28.549507, lng: 77.203613};
+
+  var locations = [
+    ['Location 1<br>\
+    801 S Hope St A, Los Angeles, CA 90017<br>\
+   <a href="https://goo.gl/maps/L8ETMBt7cRA2">Get Directions</a>',   28.549589, 77.203645],
+    ['Location 2<br>\
+    525 Santa Monica Blvd, Santa Monica, CA 90401<br>\
+   <a href="https://goo.gl/maps/PY1abQhuW9C2">Get Directions</a>', 28.582437, 77.083633],
+    ['Location 3<br>\
+    146 South Lake Avenue #106, At Shoppers Lane, Pasadena, CA 91101<br>\
+    <a href="https://goo.gl/maps/eUmyNuMyYNN2">Get Directions</a>', 28.563, 77.123456],
+ 
+  ];
+
+var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 9,
+    center: center
+  });
+
+var infowindow =  new google.maps.InfoWindow({});
+
+var marker, count;
+
+for (count = 0; count < locations.length; count++) {
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+      map: map,
+      title: locations[count][0]
+    });
+
+google.maps.event.addListener(marker, 'click', (function (marker, count) {
+      return function () {
+        infowindow.setContent(locations[count][0]);
+        infowindow.open(map, marker);
+      }
+    })(marker, count));
+  }
+}
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXInZII6KyZW7htLpwTgsGrgYv6XMtgf0 &callback=initMap">
+    </script>
+  </body>
+</html>
